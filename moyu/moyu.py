@@ -45,7 +45,12 @@ def main():
 	weekend_gap = max(4 - weekday, 0)
 	print(GAP_NAMES[weekend_gap] + "周末")
 
-	holidays = chinese_calendar.get_holidays(today, datetime.date(today.year, 12, 31))
+	holidays = []
+	try:
+		holidays = chinese_calendar.get_holidays(today, datetime.date(today.year, 12, 31))
+	except:
+		print("没有查询到 " + str(today.year) + " 年的节假日数据，请更新 chinese_calendar 库:")
+		print("pip install -U chinese_calendar")
 	holiday_gaps = {}
 	for holiday in holidays:
 		_, holiday_name = chinese_calendar.get_holiday_detail(holiday)
